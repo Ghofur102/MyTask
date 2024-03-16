@@ -36,8 +36,8 @@ class AuthController extends Controller
 
     public function loginProcess(Request $request){
         $validator = Validator::make($request->all(), [
-            'email' =>'required|email|unique:|users',
-            'password' => Hash::make($request->password),
+            'email' =>'required|email|unique:users',
+            'password' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
