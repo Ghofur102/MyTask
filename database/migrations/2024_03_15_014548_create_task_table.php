@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->date('deadline');
             $table->enum('status', ['sudah dikerjakan', 'belum deadline', 'telat']);
+            $table->enum('reminder', ['1 hari', '2 hari', '3 hari']);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
