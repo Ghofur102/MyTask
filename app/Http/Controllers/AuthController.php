@@ -46,7 +46,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => $request->password]))
             {
-            return redirect()->route('dashboard')->with(['success' => 'Login Berhasil']);
+            return redirect('/')->with(['success' => 'Login Berhasil']);
         } else {
             return redirect()->back()->with(['error' => 'Email atau Password Salah']);
         }
