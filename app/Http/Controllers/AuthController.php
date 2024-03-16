@@ -19,7 +19,6 @@ class AuthController extends Controller
     public function registerProcess(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'address' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required',
         ]);
@@ -28,7 +27,6 @@ class AuthController extends Controller
         }
         $user = User::create([
             'name' => $request->name,
-            'address' => $request->address,
             'email' => $request->email,
             'password' => Hash::make($request->password)
 
