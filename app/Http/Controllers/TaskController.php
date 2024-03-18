@@ -33,14 +33,14 @@ class TaskController extends Controller
     {
         return view('welcome');
     }
-    public function complete($id)
+    public function status($id)
     {
         // temukan tugas berdasarkan id yang diberikan
         $task = Task::findOrFail($id);
         // jika status belum deadline
         if ($task->status == 'belum deadline') {
             // jika deadline lebih dari hari ini
-            if ($task->deadline >= Carbon::now()) {
+            if ($task->deadline > Carbon::now()) {
                 //maka status akan diganti ke 'telat'
                 $task->status = 'telat';
                 //dan jika tidak
