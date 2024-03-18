@@ -20,14 +20,39 @@ class TaskController extends Controller
 
         ]);
 
-        Product::create([
-            'user_id'         => auth()->user(),
-            'deskripsi'         => $request->deskripsi,
-            'status'   => $request->status,
-            'reminder'         => $request->reminder,
+        Task::create([
+            'user_id'    => auth()->user()->id,
+            'deskripsi'  => $request->deskripsi,
+            'deadline'   => $request->deadline,
+            'status'     => $request->status,
+            'reminder'   => $request->reminder,
         ]);
 
-        return back('');
+        return redirect()->route('task')->with('success',' Task berhasil dibuat.');
+    }
+
+    public function update(Request $request, Task $task, $id)
+    {
+        $request->validate([
+            'deskripsi' => 'required',
+            'deadline' => 'required',
+            'status' => 'required',
+            'reminder' => 'required',
+        ]);
+
+        // $task = Task::findOrFail($id);
+        $task->update($request->all());
+
+        return redirect()->route('task')->with('success','Task berhasil diupdate');
+
+    }
+
+    public function delete($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->delete();
+
+        return redirect()->route('task')->with('success', 'Task berhasil dihapus');
     }
     public function dashboard()
     {
