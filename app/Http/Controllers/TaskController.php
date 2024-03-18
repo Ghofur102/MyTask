@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Task;
+
 
 class TaskController extends Controller
 {
@@ -32,6 +35,7 @@ class TaskController extends Controller
     }
     public function complete($id)
     {
+        // temukan tugas berdasarkan id yang diberikan
         $task = Task::findOrFail($id);
         // jika status belum deadline
         if ($task->status == 'belum deadline') {
