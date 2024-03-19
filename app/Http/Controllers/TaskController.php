@@ -19,7 +19,7 @@ class TaskController extends Controller
 
         ]);
 
-        // validasi deadline tidak boleh kurang dari hari 
+        // validasi deadline tidak boleh kurang dari hari
         $deadline = Carbon::parse($request->deadline);
         if ($deadline->lte(Carbon::now())) {
             return back()->withErrors('Deadline tidak boleh kurang dari hari ini');
@@ -61,7 +61,7 @@ class TaskController extends Controller
     }
     public function dashboard()
     {
-        return view('welcome');
+        return view('mytask.home');
     }
     public function status($id)
     {
