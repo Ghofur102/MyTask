@@ -86,4 +86,8 @@ class TaskController extends Controller
             return redirect()->route('task')->with('error', 'Tugas sudah diselesaikan sebelumnya');
         }
     }
+
+    public function form() {
+        return view('mytask.form');
+    }
 }

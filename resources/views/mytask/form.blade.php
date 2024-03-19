@@ -87,7 +87,7 @@
         <div class="card px-1 py-4">
             <div class="card-body">
                 <a href="dashboard">
-                <button type="button" class="btn btn-primary mb-3">Kembali</button></a>
+                    <button type="button" class="btn btn-primary mb-3">Kembali</button></a>
                 <h6 class="card-title mb-3">Tambah Daftar Pekerjaan</h6>
                 <form method="POST" action="/form">
                     @csrf
@@ -96,12 +96,18 @@
                             <div class="form-group">
                                 <!-- <label for="name">Name</label> --> <input class="form-control" type="text"
                                     name="deskripsi" placeholder="Deskripsi">
+                                @error('deskripsi')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <input class="form-control" type="date" name="deadline" placeholder="Deskripsi">
+                            @error('deadline')
+                            <p class="text-danger">{{ $message }}</p>
+                        @enderror
                         </div>
                     </div>
                     <br>
@@ -114,10 +120,13 @@
                                     <option value="2">2 hari sebelum</option>
                                     <option value="3">3 hari sebelum</option>
                                 </select>
+                                @error('reminder')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             </div>
                         </div>
                     </div>
-                <button type="submit" class="btn btn-primary btn-block confirm-button">Confirm</button>
+                    <button type="submit" class="btn btn-primary btn-block confirm-button">Confirm</button>
                 </form>
             </div>
         </div>

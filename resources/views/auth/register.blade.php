@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,47 +7,63 @@
     <title>register</title>
 
     <!-- Font Icon -->
-    <link rel="stylesheet" href="{{asset ('style/fonts/material-icon/css/material-design-iconic-font.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('style/fonts/material-icon/css/material-design-iconic-font.min.css') }}">
 
     <!-- Main css -->
-    <link rel="stylesheet" href="{{asset ('style/css/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('style/css/style.css') }}">
 </head>
+
 <body>
 
     <div class="main">
 
-         <!-- Sign up form -->
-         <section class="signup">
+        <!-- Sign up form -->
+        <section class="signup">
             <div class="container">
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Sign up</h2>
-                        <form method="POST" class="register-form" id="register-form" action="{{route ('registerproses')}}">
+                        <form method="POST" class="register-form" id="register-form"
+                            action="{{ route('registerproses') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name"/>
+                                <input type="text" name="name" id="name" placeholder="Your Name" />
+
                             </div>
+                            @error('name')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Your Email"/>
+                                <input type="email" name="email" id="email" placeholder="Your Email" />
+
                             </div>
+                            @error('email')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="password" id="password" placeholder="Password"/>
+                                <input type="password" name="password" id="password" placeholder="Password" />
+
                             </div>
+                            @error('password')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
                             <div class="form-group">
                                 <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all
+                                    statements in <a href="#" class="term-service">Terms of service</a></label>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <input type="submit" name="signup" id="signup" class="form-submit"
+                                    value="Register" />
                             </div>
                         </form>
                     </div>
                     <div class="signup-image">
-                        <figure><img src="{{asset ('style/images/signup-image.jpg')}}" alt="sing up image"></figure>
-                        <a href="{{route('login')}}" class="signup-image-link">I am already member</a>
+                        <figure><img src="{{ asset('style/images/signup-image.jpg') }}" alt="sing up image"></figure>
+                        <a href="{{ route('login') }}" class="signup-image-link">I am already member</a>
                     </div>
                 </div>
             </div>
@@ -57,7 +74,8 @@
     </div>
 
     <!-- JS -->
-    <script src="{{asset ('style/vendor/jquery/jquery.min.j')}}s"></script>
-    <script src="{{asset ('style/js/main.js')}}"></script>
+    <script src="{{ asset('style/vendor/jquery/jquery.min.j') }}s"></script>
+    <script src="{{ asset('style/js/main.js') }}"></script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
 </html>
