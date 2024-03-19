@@ -23,3 +23,7 @@ Route::post('register', [AuthController::class, 'registerProcess'])->name('regis
 Route::post('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::post('task/', [TaskController::class, 'task'])->name('task');
+Route::get('form', [TaskController::class,'form'])->name('form')->middleware('auth');
+Route::post('form', [TaskController::class, 'store'])->name('formproses')->middleware('auth');
+
+

@@ -86,8 +86,10 @@
     <div class="container mt-5 mb-5 d-flex justify-content-center">
         <div class="card px-1 py-4">
             <div class="card-body">
-                <h6 class="card-title mb-3">This appointment is for</h6>
-                <form method="POST" action="{{ route('formproses') }}">
+                <a href="dashboard">
+                <button type="button" class="btn btn-primary mb-3">Kembali</button></a>
+                <h6 class="card-title mb-3">Tambah Daftar Pekerjaan</h6>
+                <form method="POST" action="/form">
                     @csrf
                     <div class="row">
                         <div class="col-sm-12">
@@ -102,23 +104,11 @@
                             <input class="form-control" type="date" name="deadline" placeholder="Deskripsi">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <br>
-                            <div class="input-group mb-3">
-                                <select class="form-select" id="inputGroupSelect01">
-                                    <option selected>Status</option>
-                                    <option value="1">Sudah dikerjakan</option>
-                                    <option value="2">Belum dikerjakan</option>
-                                    <option value="3">Telat</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="input-group mb-3">
-                                <select class="form-select" id="inputGroupSelect01">
+                                <select class="form-select" name="reminder" id="inputGroupSelect01">
                                     <option selected>Reminder</option>
                                     <option value="1">1 hari sebelum</option>
                                     <option value="2">2 hari sebelum</option>
@@ -127,10 +117,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" d-flex flex-column text-center px-5 mt-3 mb-3"> <small class="agree-text">By Booking
-                            this
-                            appointment you agree to the</small> <a href="#" class="terms">Terms & Conditions</a>
-                    </div> <button class="btn btn-primary btn-block confirm-button">Confirm</button>
+                <button type="submit" class="btn btn-primary btn-block confirm-button">Confirm</button>
                 </form>
             </div>
         </div>

@@ -15,21 +15,26 @@ class TaskController extends Controller
 
             'deskripsi' => 'required',
             'deadline' => 'required',
-            'status' => 'required',
             'reminder' => 'required',
 
         ]);
 
+        // validasi deadline tidak boleh kurang dari hari 
+        $deadline = Carbon::parse($request->deadline);
+        if ($deadline->lte(Carbon::now())) {
+            return back()->withErrors('Deadline tidak boleh kurang dari hari ini');
+        }
         Task::create([
             'user_id'    => auth()->user()->id,
             'deskripsi'  => $request->deskripsi,
             'deadline'   => $request->deadline,
-            'status'     => $request->status,
+            'status'     => 'belum deadline',
             'reminder'   => $request->reminder,
         ]);
 
-        return redirect()->route('task')->with('success',' Task berhasil dibuat.');
+        return back()->with('success',' Task berhasil dibuat.');
     }
+
 
     public function update(Request $request, Task $task, $id)
     {
