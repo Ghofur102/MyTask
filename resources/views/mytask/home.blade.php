@@ -221,32 +221,38 @@
                             <tbody>
                                 <tr>
 
-                                    <th>Task Name</th>
-                                    <th>Progress</th>
-                                    <th>Due Date</th>
+                                    <th>Deskripsi</th>
+                                    <th>Status</th>
+                                    <th>Reminder</th>
                                     <th>Action</th>
                                 </tr>
 
 
+                                @foreach ( $todayData as $item )
 
-
-                                <td>Java Project</td>
-                                <td class="align-middle">
-                                    <div class="progress" data-height="4" data-toggle="tooltip" title=""
-                                        data-original-title="43%" style="height: 4px;">
-                                        <div class="progress-bar bg-success" data-width="43" style="width: 43px;"></div>
-                                    </div>
-                                </td>
-                                <td>2018-01-20</td>
-                                <td>
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                            width="25" height="25" viewBox="0 0 24 24">
+                                <tr>
+                                    <td>{{ $item->deskripsi}}</td>
+                                    <td class="align-middle">
+                                        {{$item->status}}
+                                    </td>
+                                    <td>{{$item->reminder}}</td>
+                                    <td>
+                                        <form action="/status/{{ $item->id }}" method="post">
+                                            @csrf
+                                            <button type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                                            viewBox="0 0 24 24">
                                             <path fill="currentColor"
                                                 d="m10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21z" />
                                         </svg>
+                                            </button>
+                                        </form>
 
-                                </td>
+                                    </td>
+
+
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <a href="{{ url('/form') }}" class="btn btn-primary">Tambah Tugas</a>

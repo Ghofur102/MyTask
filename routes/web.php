@@ -26,4 +26,4 @@ Route::post('task/', [TaskController::class, 'task'])->name('task');
 Route::get('form', [TaskController::class,'form'])->name('form')->middleware('auth');
 Route::post('form', [TaskController::class, 'store'])->name('formproses')->middleware('auth');
 
-
+Route::post('status/{id}', [TaskController::class, 'status'])->name('status')->middleware('auth');

@@ -62,10 +62,11 @@ class TaskController extends Controller
     {
 
         $todayData = DB::table('task')
-            ->whereDate('dateline', today())
+            ->whereDate('deadline', today())
+            ->where('status', 'belum deadline')
             ->get();
 
-        return view('mytask.home', compact('$todayData'));
+        return view('mytask.home', compact('todayData'));
     }
     public function status($id)
     {
@@ -85,9 +86,9 @@ class TaskController extends Controller
             //untuk menyimpan perubahan di atas
             $task->save();
 
-            return redirect()->route('task')->with('success', 'Tugas berhasil diselesaikan');
+            return redirect()->route('dashboard')->with('success', 'Tugas berhasil diselesaikan');
         } else {
-            return redirect()->route('task')->with('error', 'Tugas sudah diselesaikan sebelumnya');
+            return redirect()->route('dashboard')->with('error', 'Tugas sudah diselesaikan sebelumnya');
         }
     }
 
