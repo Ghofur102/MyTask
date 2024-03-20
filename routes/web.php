@@ -4,14 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 
-Route::get('/', [TaskController::class, 'dashboard'])->name('home');
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
 
-
-Route::get('daftar', function (){
-    return view('mytask.other-task');
-});
-
-Route::get('dashboard', [TaskController::class, 'dashboard'])->name('dashboard');
+Route::get('dashboard', [TaskController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 
 Route::get('login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('login', [AuthController::class, 'loginProcess'])->name('loginproses')->middleware('guest');
