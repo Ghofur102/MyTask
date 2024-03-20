@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Task;
-
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -32,7 +32,7 @@ class TaskController extends Controller
             'reminder'   => $request->reminder,
         ]);
 
-        return back()->with('success',' Task berhasil dibuat.');
+        return back()->with('success', ' Task berhasil dibuat.');
     }
 
 
@@ -48,8 +48,7 @@ class TaskController extends Controller
         // $task = Task::findOrFail($id);
         $task->update($request->all());
 
-        return redirect()->route('task')->with('success','Task berhasil diupdate');
-
+        return redirect()->route('task')->with('success', 'Task berhasil diupdate');
     }
 
     public function delete($id)
@@ -61,7 +60,12 @@ class TaskController extends Controller
     }
     public function dashboard()
     {
-        return view('mytask.home');
+
+        $todayData = DB::table('task')
+            ->whereDate('dateline', today())
+            ->get();
+
+        return view('mytask.home', compact('$todayData'));
     }
     public function status($id)
     {
@@ -87,7 +91,8 @@ class TaskController extends Controller
         }
     }
 
-    public function form() {
+    public function form()
+    {
         return view('mytask.form');
     }
 }
