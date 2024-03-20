@@ -4,9 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TaskController::class, 'dashboard'])->name('home');
+
 
 Route::get('daftar', function (){
     return view('mytask.other-task');

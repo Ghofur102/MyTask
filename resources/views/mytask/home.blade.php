@@ -208,6 +208,32 @@
 
 
     <div class="container">
+        @if (Route::has('login'))
+            <nav class="mb-4">
+                @auth
+
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                     
+                        <button class="btn btn-danger">Logout</button>
+
+
+                    </form>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="btn btn-outline-primary">
+                        Log in
+                    </a>
+
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}"
+                         class="btn btn-outline-primary">
+                            Register
+                        </a>
+                    @endif
+                @endauth
+            </nav>
+        @endif
         <div class="col-md-12 col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
@@ -228,30 +254,29 @@
                                 </tr>
 
 
-                                @foreach ( $todayData as $item )
+                                @foreach ($todayData as $item)
+                                    <tr>
+                                        <td>{{ $item->deskripsi }}</td>
+                                        <td class="align-middle">
+                                            {{ $item->status }}
+                                        </td>
+                                        <td>{{ $item->reminder }}</td>
+                                        <td>
+                                            <form action="/status/{{ $item->id }}" method="post">
+                                                @csrf
+                                                <button type="submit">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="25"
+                                                        height="25" viewBox="0 0 24 24">
+                                                        <path fill="currentColor"
+                                                            d="m10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21z" />
+                                                    </svg>
+                                                </button>
+                                            </form>
 
-                                <tr>
-                                    <td>{{ $item->deskripsi}}</td>
-                                    <td class="align-middle">
-                                        {{$item->status}}
-                                    </td>
-                                    <td>{{$item->reminder}}</td>
-                                    <td>
-                                        <form action="/status/{{ $item->id }}" method="post">
-                                            @csrf
-                                            <button type="submit">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                                            viewBox="0 0 24 24">
-                                            <path fill="currentColor"
-                                                d="m10.6 16.2l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21z" />
-                                        </svg>
-                                            </button>
-                                        </form>
-
-                                    </td>
+                                        </td>
 
 
-                                </tr>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
