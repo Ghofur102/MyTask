@@ -214,26 +214,34 @@
 
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
-                     
+
                         <button class="btn btn-danger">Logout</button>
 
 
                     </form>
                 @else
-                    <a href="{{ route('login') }}"
-                        class="btn btn-outline-primary">
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary">
                         Log in
                     </a>
 
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                         class="btn btn-outline-primary">
+                        <a href="{{ route('register') }}" class="btn btn-outline-primary">
                             Register
                         </a>
                     @endif
                 @endauth
             </nav>
         @endif
+        @foreach ($notifications as $notif)
+            <form action="/delete-notification/{{ $notif->id }}" method="post">
+                @csrf
+                @method('DELETE')
+                <div class="alert alert-info alert-dismissible fade show" role="alert">
+                    <b>Ada tugas {{ $notif->task->reminder }} lagi! </b>{{ $notif->task->deskripsi }}
+                    <button type="submit" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </form>
+        @endforeach
         <div class="col-md-12 col-12 col-sm-12">
             <div class="card">
                 <div class="card-header">

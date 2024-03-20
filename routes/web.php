@@ -29,3 +29,4 @@ Route::post('status/{id}', [TaskController::class, 'status'])->name('status')->m
 Route::get('daftar', [TaskController::class, 'daftar'])->name('daftar')->middleware('auth');
  Route::put('edit/{id}', [TaskController::class, 'update'])->name('update')->middleware('auth');
 Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('delete')->middleware('auth');
+Route::delete('delete-notification/{id}', [TaskController::class, 'delete_notification'])->name('delete_notification')->middleware('auth');

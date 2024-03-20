@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\notifications;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Task;
@@ -9,6 +10,47 @@ use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
+    public function create_notification($id) {
+        $task = Task::findOrFail($id);
+        $deadline = Carbon::parse($task->deadline);
+        $date_notification = null;
+        if ($task->reminder == '1 hari') {
+            $date_notification = $deadline->subDay();
+        } else if($task->reminder == '2 hari') {
+            $date_notification = $deadline->subDays(2);
+
+        } else if($task->reminder == '3 hari') {
+            $date_notification = $deadline->subDays(3);
+        }
+        return notifications::create([
+            'user_id' => auth()->user()->id,
+            'task_id' => $id,
+            'date_notification' => $date_notification
+        ]);
+    }
+    public function update_notification($id)
+    {
+        $notification = notifications::findOrFail($id);
+        $deadline = Carbon::parse($notification->task->deadline);
+        $date_notification = null;
+        if ($notification->task->reminder == '1 hari') {
+            $date_notification = $deadline->subDay();
+        } else if($notification->task->reminder == '2 hari') {
+            $date_notification = $deadline->subDays(2);
+
+        } else if($notification->task->reminder == '3 hari') {
+            $date_notification = $deadline->subDays(3);
+        }
+        return $notification->update([
+            'date_notification' => $date_notification
+        ]);
+    }
+    public function delete_notification($id)
+    {
+        $notification = notifications::findOrFail($id);
+        $notification->delete();
+        return back();
+    }
     public function store(Request $request)
     {
         $request->validate([
@@ -24,13 +66,15 @@ class TaskController extends Controller
         if ($deadline->lte(Carbon::now())) {
             return back()->withErrors('Deadline tidak boleh kurang dari hari ini');
         }
-        Task::create([
+        $task = Task::create([
             'user_id'    => auth()->user()->id,
             'deskripsi'  => $request->deskripsi,
             'deadline'   => $request->deadline,
             'status'     => 'belum deadline',
             'reminder'   => $request->reminder,
         ]);
+
+        $this->create_notification($task->id);
 
         return back()->with('success', ' Task berhasil dibuat.');
     }
@@ -47,6 +91,9 @@ class TaskController extends Controller
 
         // $task = Task::findOrFail($id);
         $task->update($request->all());
+
+        $id_notification = notifications::where('task_id', $id)->first();
+        $this->update_notification($id_notification->id);
 
         return back()->with('success', 'Task berhasil diupdate');
     }
@@ -66,7 +113,9 @@ class TaskController extends Controller
             ->where('status', 'belum deadline')
             ->get();
 
-        return view('mytask.home', compact('todayData'));
+        $notifications = notifications::where('user_id', auth()->user()->id)->whereDate('date_notification', today())->get();
+
+        return view('mytask.home', compact('todayData', 'notifications'));
     }
     public function status($id)
     {
