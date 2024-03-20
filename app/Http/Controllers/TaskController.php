@@ -48,7 +48,7 @@ class TaskController extends Controller
         // $task = Task::findOrFail($id);
         $task->update($request->all());
 
-        return redirect()->route('task')->with('success', 'Task berhasil diupdate');
+        return back()->with('success', 'Task berhasil diupdate');
     }
 
     public function delete($id)
@@ -56,7 +56,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $task->delete();
 
-        return redirect()->route('task')->with('success', 'Task berhasil dihapus');
+        return back()->with('success', 'Task berhasil dihapus');
     }
     public function dashboard()
     {
@@ -95,5 +95,15 @@ class TaskController extends Controller
     public function form()
     {
         return view('mytask.form');
+    }
+    public function daftar()
+    {
+        $tugas_belum_deadline = DB::table('task')
+            ->where('status', 'belum deadline')
+            ->get();
+        $tugas_telat = DB::table('task')
+            ->where('status', 'telat')
+            ->get();
+        return view('mytask.other-task', compact('tugas_belum_deadline', 'tugas_telat'));
     }
 }

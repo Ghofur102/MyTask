@@ -27,3 +27,6 @@ Route::get('form', [TaskController::class,'form'])->name('form')->middleware('au
 Route::post('form', [TaskController::class, 'store'])->name('formproses')->middleware('auth');
 
 Route::post('status/{id}', [TaskController::class, 'status'])->name('status')->middleware('auth');
+Route::get('daftar', [TaskController::class, 'daftar'])->name('daftar')->middleware('auth');
+ Route::put('edit/{id}', [TaskController::class, 'update'])->name('update')->middleware('auth');
+Route::delete('delete/{id}', [TaskController::class, 'delete'])->name('delete')->middleware('auth');
