@@ -53,19 +53,12 @@ class TaskController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
-
-            'deskripsi' => 'required',
-            'deadline' => 'required',
-            'reminder' => 'required',
-
-        ]);
-
-        // validasi deadline tidak boleh kurang dari hari
-        $deadline = Carbon::parse($request->deadline);
-        if ($deadline->lte(Carbon::now())) {
-            return back()->withErrors('Deadline tidak boleh kurang dari hari ini');
-        }
+        // Validasi input menggunakan aturan validasi Laravel
+    $request->validate([
+        'deskripsi' => 'required',
+        'deadline' => 'required|date|after_or_equal:today', // Tanggal deadline harus setelah atau sama dengan hari ini
+        'reminder' => 'required',
+    ]);
         $task = Task::create([
             'user_id'    => auth()->user()->id,
             'deskripsi'  => $request->deskripsi,
@@ -84,12 +77,11 @@ class TaskController extends Controller
     {
         $request->validate([
             'deskripsi' => 'required',
-            'deadline' => 'required',
-            'status' => 'required',
+            'deadline' => 'required|date|after_or_equal:today',
             'reminder' => 'required',
         ]);
 
-        // $task = Task::findOrFail($id);
+        $task = Task::findOrFail($id);
         $task->update($request->all());
 
         $id_notification = notifications::where('task_id', $id)->first();

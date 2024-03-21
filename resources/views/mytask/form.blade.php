@@ -86,6 +86,14 @@
     <div class="container mt-5 mb-5 d-flex justify-content-center">
         <div class="card px-1 py-4">
             <div class="card-body">
+
+                @if ($message = Session::get ('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong> {{$message}} </strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endif
+
                 <a href="dashboard">
                     <button type="button" class="btn btn-primary mb-3">Kembali</button></a>
                 <h6 class="card-title mb-3">Tambah Daftar Pekerjaan</h6>
@@ -116,9 +124,9 @@
                             <div class="input-group mb-3">
                                 <select class="form-select" name="reminder" id="inputGroupSelect01">
                                     <option selected>Reminder</option>
-                                    <option value="1">1 hari sebelum</option>
-                                    <option value="2">2 hari sebelum</option>
-                                    <option value="3">3 hari sebelum</option>
+                                    <option value="1 hari">1 hari sebelum</option>
+                                    <option value="2 hari">2 hari sebelum</option>
+                                    <option value="3 hari">3 hari sebelum</option>
                                 </select>
                                 @error('reminder')
                                 <p class="text-danger">{{ $message }}</p>
@@ -137,3 +145,6 @@
 </body>
 
 </html>
+
+
+
