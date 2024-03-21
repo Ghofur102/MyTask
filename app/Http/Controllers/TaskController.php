@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Task;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -53,12 +54,19 @@ class TaskController extends Controller
     }
     public function store(Request $request)
     {
-        // Validasi input menggunakan aturan validasi Laravel
-    $request->validate([
-        'deskripsi' => 'required',
-        'deadline' => 'required|date|after_or_equal:today', // Tanggal deadline harus setelah atau sama dengan hari ini
-        'reminder' => 'required',
-    ]);
+        $request->validate([
+
+            'deskripsi' => 'required',
+            'deadline' => 'required',
+            'reminder' => 'required',
+
+        ]);
+
+        // validasi deadline tidak boleh kurang dari hari
+        $deadline = Carbon::parse($request->deadline);
+        if ($deadline->lte(Carbon::now())) {
+            return back()->withErrors('Deadline tidak boleh kurang dari hari ini');
+        }
         $task = Task::create([
             'user_id'    => auth()->user()->id,
             'deskripsi'  => $request->deskripsi,
@@ -77,11 +85,12 @@ class TaskController extends Controller
     {
         $request->validate([
             'deskripsi' => 'required',
-            'deadline' => 'required|date|after_or_equal:today',
+            'deadline' => 'required',
+            'status' => 'required',
             'reminder' => 'required',
         ]);
 
-        $task = Task::findOrFail($id);
+        // $task = Task::findOrFail($id);
         $task->update($request->all());
 
         $id_notification = notifications::where('task_id', $id)->first();
@@ -103,6 +112,7 @@ class TaskController extends Controller
         $todayData = DB::table('task')
             ->whereDate('deadline', today())
             ->where('status', 'belum deadline')
+            ->where('user_id', Auth::user()->id )
             ->get();
 
         $notifications = notifications::where('user_id', auth()->user()->id)->whereDate('date_notification', today())->get();
