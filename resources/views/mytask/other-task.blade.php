@@ -466,7 +466,8 @@
                                             d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-1 2q-.425 0-.712-.288T3 20v-2.425q0-.4.15-.763t.425-.637L16.2 3.575q.3-.275.663-.425t.762-.15q.4 0 .775.15t.65.45L20.425 5q.3.275.437.65T21 6.4q0 .4-.138.763t-.437.662l-12.6 12.6q-.275.275-.638.425t-.762.15zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z" />
                                     </svg>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 24 24" data-bs-toggle="modal" data-bs-target="#hapusModal{{ $item->id }}">
+                                        viewBox="0 0 24 24" data-bs-toggle="modal"
+                                        data-bs-target="#hapusModal{{ $item->id }}">
                                         <path fill="currentColor"
                                             d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z" />
                                     </svg>
@@ -515,14 +516,14 @@
                                                                 <select class="form-select" name="reminder"
                                                                     id="inputGroupSelect01">
                                                                     <option selected>Reminder</option>
-                                                                    <option value="1"
-                                                                        {{ $item->reminder === '1' ? 'selected' : '' }}>
+                                                                    <option value="1 hari"
+                                                                        {{ $item->reminder === '1 hari' ? 'selected' : '' }}>
                                                                         1 hari sebelum</option>
-                                                                    <option value="2"
-                                                                        {{ $item->reminder === '2' ? 'selected' : '' }}>
+                                                                    <option value="2 hari"
+                                                                        {{ $item->reminder === '2 hari' ? 'selected' : '' }}>
                                                                         2 hari sebelum</option>
-                                                                    <option value="3"
-                                                                        {{ $item->reminder === '3' ? 'selected' : '' }}>
+                                                                    <option value="3 hari"
+                                                                        {{ $item->reminder === '3 hari' ? 'selected' : '' }}>
                                                                         3 hari sebelum</option>
                                                                 </select>
                                                                 @error('reminder')
@@ -533,9 +534,9 @@
                                                     </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-warning"
+                                                <button type="button" class="btn btn-danger"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-danger">Edit</button>
+                                                <button type="submit" class="btn btn-warning">Edit</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -547,22 +548,23 @@
                                         <form method="post" action="delete/{{ $item->id }}">
                                             @method('DELETE')
                                             @csrf
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Apakah yakin ingin menghapus?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-warning"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                </div>
                                             </div>
-                                            <div class="modal-body">
-                                                Apakah yakin ingin menghapus?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-warning"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-danger">Hapus</button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -579,67 +581,11 @@
                         @foreach ($tugas_telat as $item)
                             <div class="task high">
                                 <div class="desc">
-                                    <div class="title">Lorem Ipsum</div>
-                                    <div>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur,
-                                        adipisci velit
+                                    <div>{{ $item->deskripsi }}
                                     </div>
                                 </div>
                                 <div class="time">
-                                    <div class="date">Jun 1, 2012</div>
-                                    <div> 1 day</div>
-                                </div>
-                                <div class="widget-content-right">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 24 24" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        <path fill="currentColor"
-                                            d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-1 2q-.425 0-.712-.288T3 20v-2.425q0-.4.15-.763t.425-.637L16.2 3.575q.3-.275.663-.425t.762-.15q.4 0 .775.15t.65.45L20.425 5q.3.275.437.65T21 6.4q0 .4-.138.763t-.437.662l-12.6 12.6q-.275.275-.638.425t-.762.15zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z" />
-                                    </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                        viewBox="0 0 24 24" data-bs-toggle="modal" data-bs-target="#hapusModal">
-                                        <path fill="currentColor"
-                                            d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z" />
-                                    </svg>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="editModal" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                ?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-warning"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-danger">Edit</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal fade" id="hapusModal" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Apakah yakin ingin menghapus?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-warning"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-danger">Hapus</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="date">{{ $item->deadline }}</div>
                                 </div>
                             </div>
                         @endforeach
