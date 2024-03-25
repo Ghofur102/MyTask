@@ -116,6 +116,9 @@ class TaskController extends Controller
             ->get();
 
         $notifications = notifications::where('user_id', auth()->user()->id)->whereDate('date_notification', today())->get();
+        $tasks = Task::where('deadline', '<', today())->update([
+            'status' => 'telat'
+        ]);
 
         return view('mytask.home', compact('todayData', 'notifications'));
     }
